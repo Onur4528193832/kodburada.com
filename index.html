@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodlama Öğrenme Sitesi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        header {
+            background-color: #1a73e8;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .lesson {
+            flex: 1;
+            min-width: 300px;
+        }
+        .code-editor {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: monospace;
+            resize: vertical;
+        }
+        #output {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        button {
+            padding: 10px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
+        @media (max-width: 600px) {
+            .content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kodlama Öğrenmeye Hoş Geldiniz!</h1>
+        <p>Programlamanın temellerini öğrenin ve kendi kodlarınızı yazın.</p>
+    </header>
+    <nav>
+        <a href="#home">Ana Sayfa</a>
+        <a href="#lessons">Dersler</a>
+        <a href="#try">Kodu Dene</a>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <div class="lesson">
+                <h2>Kodlama Nedir?</h2>
+                <p>Kodlama, bilgisayarların anlayabileceği talimatlar yazma sürecidir. İşte temel kavramlar:</p>
+                <ul>
+                    <li><strong>Değişkenler:</strong> Veri saklamak için kullanılır (ör. let x = 5;).</li>
+                    <li><strong>Döngüler:</strong> Tekrarlayan işlemler için (ör. for, while).</li>
+                    <li><strong>Fonksiyonlar:</strong> Tekrar kullanılabilir kod blokları (ör. function merhaba() { ... }).</li>
+                </ul>
+                <h3>Örnek JavaScript Kodu:</h3>
+                <pre>
+let mesaj = "Merhaba Dünya!";
+console.log(mesaj);
+
+for (let i = 1; i <= 3; i++) {
+    console.log("Döngü: " + i);
+}
+                </pre>
+                <h3>Popüler Diller:</h3>
+                <ul>
+                    <li><strong>Python:</strong> Kolay syntax, veri analizi ve yapay zeka için.</li>
+                    <li><strong>JavaScript:</strong> Web geliştirme için.</li>
+                    <li><strong>Java:</strong> Kurumsal uygulamalar için.</li>
+                </ul>
+            </div>
+            <div class="code-editor">
+                <h2>Kendi Kodunu Dene</h2>
+                <textarea id="code" placeholder="JavaScript kodunuzu buraya yazın...">
+console.log("Merhaba Dünya!");
+let sayi = 10;
+console.log("Sayı: " + sayi);
+                </textarea>
+                <button onclick="runCode()">Kodu Çalıştır</button>
+                <div id="output">Sonuç burada görünecek...</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function runCode() {
+            const code = document.getElementById('code').value;
+            const output = document.getElementById('output');
+            output.innerHTML = ''; // Çıktıyı temizle
+            try {
+                // console.log'u yakalamak için özel bir fonksiyon
+                const originalLog = console.log;
+                console.log = function (msg) {
+                    output.innerHTML += msg + '<br>';
+                };
+                eval(code); // Kodu çalıştır
+                console.log = originalLog; // console.log'u eski haline getir
+            } catch (error) {
+                output.innerHTML = 'Hata: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
